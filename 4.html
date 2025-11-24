@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第四單元：我的祕密好友 - 課後複習站</title>
+    <style>
+        /* --- 全域設定 --- */
+        :root {
+            --primary-color: #C0392B; /* 單元四：警戒紅 */
+            --accent-color: #E67E22;  /* 警示橘 */
+            --think-color: #2C3E50;   /* 沉穩灰藍 (適合資安議題) */
+            --bg-color: #F9F9F9;
+            --text-color: #333;
+            --card-bg: #FFF;
+        }
+
+        body {
+            font-family: "微軟正黑體", "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 { margin: 0; font-size: 2.5em; }
+        .subtitle { font-size: 1.2em; opacity: 0.9; margin-top: 10px; }
+
+        /* --- 通用卡片樣式 --- */
+        .section-title {
+            text-align: center;
+            color: var(--primary-color);
+            margin-top: 50px;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            font-weight: bold;
+            border-bottom: 3px solid var(--accent-color);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        @media (min-width: 600px) {
+            .card { flex-direction: row; }
+            .card.reverse { flex-direction: row-reverse; }
+            .card-img-area { width: 50%; }
+            .card-text-area { width: 50%; }
+        }
+
+        /* --- 圖片預留區樣式 (含 16:9 強制比例與互動效果) --- */
+        .img-placeholder {
+            width: 100%;
+            aspect-ratio: 16 / 9; 
+            background-color: #eee;
+            border: 3px dashed #bbb;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #777;
+            font-weight: bold;
+            text-align: center;
+            padding: 0;
+            box-sizing: border-box;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .img-placeholder:hover {
+            border-color: var(--primary-color);
+            transform: scale(1.02);
+            cursor: zoom-in;
+        }
+
+        .img-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* --- 重點整理區塊 --- */
+        .concept-box {
+            background-color: #FDEDEC; /* 淺紅色背景 */
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        
+        .concept-title { font-weight: bold; font-size: 1.2em; margin-bottom: 10px; color: #922B21; }
+
+        .warning-box {
+            background-color: #FFF3E0;
+            border: 2px solid var(--accent-color);
+            color: #D35400;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* --- 行動準則 --- */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .action-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border-top: 5px solid var(--accent-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .action-icon { font-size: 3em; margin-bottom: 10px; display: block; }
+
+        /* --- 動腦想一想區塊 --- */
+        .thinking-box {
+            border: 2px solid #eee;
+            border-radius: 15px;
+            padding: 20px;
+            background-color: #fff;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .thinking-box::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 6px;
+            background-color: var(--think-color);
+        }
+
+        .thinking-title {
+            font-weight: bold;
+            font-size: 1.3em;
+            color: var(--think-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scenario-desc {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .question-prompt {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        .question-prompt::before {
+            content: "🤔 ";
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background-color: #333;
+            color: #bbb;
+        }
+
+        /* --- 燈箱 (Lightbox) --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 85%;
+            border: 5px solid #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            animation: zoomIn 0.3s;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 10000;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: var(--accent-color);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes zoomIn {
+            from {transform:scale(0.8); opacity: 0;} 
+            to {transform:scale(1); opacity: 1;}
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 頁首 -->
+    <header>
+        <div class="container">
+            <h1>第四單元：我的祕密好友</h1>
+            <div class="subtitle">秘密說給 AI 聽？小心個資全曝光！</div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- 第一部分：故事回顧 -->
+        <div style="text-align: center;">
+            <div class="section-title">📖 故事回顧</div>
+        </div>
+
+        <!-- 場景 1 -->
+        <div class="card">
+            <div class="card-img-area">
+                <div class="img-placeholder">
+                    <img src="https://lh3.googleusercontent.com/pw/AP1GczMvxb3URnfivu99QcjdNCC_f91cL4HZMmin2-rw9CwMOfKt3iPOYWr3mSGt4vK4Oh4Xh6S4SZ8pmJZF6SFwGlzM-YLELCBUjXZX9OsLuxLy7kL3Cnc=w1920-h1080" alt="場景圖：AI夥伴介紹" onerror="this.style.display='none';this.parentNode.innerText='【圖片位置】\n請放上玩家遇到\n「AI 夥伴」APP 的畫面';">
+                </div>
+            </div>
+            <div class="card-text-area">
+                <h3>1. 你可以信任的夥伴？</h3>
+                <p>我在社群平台上看到一款叫「AI 夥伴」的聊天 APP，它號稱絕對保密、隨時陪伴。因為我最近心裡有點煩惱，就下載來試試看。</p>
+            </div>
+        </div>
+
+        <!-- 場景 2 -->
+        <div class="card reverse">
+            <div class="card-img-area">
+                <div class="img-placeholder">
+                    <img src="https://lh3.googleusercontent.com/pw/AP1GczPm7Ghc19RFChrrHkuJfSuFb03PRKV9R3kSdJ60OHGQZgIISyIZSzuny4qbxDBI-flo_8vpc1i60QMlpd9uoGB8Z4yf2ipMZdYxemJSxvK3GWyr4GQ=w1920-h1080" alt="場景圖：輸入朋友秘密" onerror="this.style.display='none';this.parentNode.innerText='【圖片位置】\n請放上玩家將朋友的\n私密對話輸入給 AI 的畫面';">
+                </div>
+            </div>
+            <div class="card-text-area">
+                <h3>2. 忍不住說了秘密</h3>
+                <p>這個 AI 實在太善解人意了，讓我放下戒心。我也順便跟安親班同學珈芸分享這個 APP。珈芸為了尋求和朋友相處的建議，把芊褕跟她說的秘密，連同她的名字，全部都告訴了 AI。</p>
+            </div>
+        </div>
+
+        <!-- 場景 3 -->
+        <div class="card">
+            <div class="card-img-area">
+                <div class="img-placeholder">
+                    <img src="https://lh3.googleusercontent.com/pw/AP1GczNltgKp-Rnq6r1JM-4HD2QekEqZXZRsWIAMdbA5OlgVX9bv-cjYtoBcdZk1hm83MPPB22UEi13yx5T3Xwp07OrxYwPQsrYThWMOgSYU5ndqG1bAVYc=w1920-h1080" alt="場景圖：衝突爆發" onerror="this.style.display='none';this.parentNode.innerText='【圖片位置】\n請放上論文圖3-8\n資料外洩引發衝突的畫面';">
+                </div>
+            </div>
+            <div class="card-text-area">
+                <h3>3. 秘密不再是秘密</h3>
+                <p>沒想到，這款 APP 的資料外洩了！芊褕發現她的私事竟然出現在網路上，非常生氣又難過，連老師都不曉得該怎麼處理。看到此情此景，我才發現，原來我們跟 AI 說的話，並不保證安全，也不保證不會外流出去。</p>
+            </div>
+        </div>
+
+        <!-- 第二部分：重點整理 -->
+        <div style="text-align: center;">
+            <div class="section-title">💡 AI 如何處理我們的秘密？</div>
+        </div>
+
+        <div class="concept-box">
+            <div class="concept-title">1. 免費的最貴 (Data Collection)</div>
+            <p>很多免費的 AI 工具，其實是透過蒐集我們輸入的對話來訓練它的系統。這表示你說給 AI 聽的每一句話，都可能被傳送到公司的伺服器，甚至變成 AI 未來回答別人的內容。</p>
+        </div>
+
+        <div class="concept-box">
+            <div class="concept-title">2. 什麼是 PII (個人識別資訊)？</div>
+            <p>PII (Personally Identifiable Information) 就是能認出「你是誰」的資料，例如：<strong>真實姓名、電話、地址、學校班級、身分證字號</strong>。這些資料絕對不能隨便交給 AI。</p>
+        </div>
+
+        <div class="warning-box">
+            重要觀念：在網路上，凡走過必留下痕跡。對話紀錄即使刪除了，後臺可能還有備份！
+        </div>
+
+        <!-- 第三部分：行動準則 -->
+        <div style="text-align: center;">
+            <div class="section-title">🛡️ 保護自己，你可以這樣做</div>
+        </div>
+
+        <div class="action-grid">
+            <div class="action-item">
+                <span class="action-icon">🤐</span>
+                <h3>匿名處理 (Anonymize)</h3>
+                <p>如果要問 AI 問題，請用「我朋友」、「某人」代替真實姓名，不要輸入任何電話或地址。</p>
+            </div>
+            <div class="action-item">
+                <span class="action-icon">⚙️</span>
+                <h3>檢查設定 (Settings)</h3>
+                <p>很多 AI 工具可以在設定中關閉「使用我的對話進行訓練」的功能，記得去檢查看看。</p>
+            </div>
+            <div class="action-item">
+                <span class="action-icon">🛑</span>
+                <h3>敏感話題 (Sensitive)</h3>
+                <p>關於健康、密碼、銀行帳號或是心底最深處的秘密，最好還是找值得信任的「人類」說。</p>
+            </div>
+        </div>
+
+        <!-- 第四部分：舉一反三（延伸思考） -->
+        <div style="text-align: center;">
+            <div class="section-title">🧠 動腦想一想</div>
+            <p style="max-width: 600px; margin: 0 auto 30px auto;">
+                除了文字對話，AI 現在還能處理聲音、臉孔和圖片，這也帶來了新的資安風險。請看看以下四個案例：
+            </p>
+        </div>
+
+        <!-- 案例 A：AI 換臉 -->
+        <div class="thinking-box">
+            <div class="thinking-title">🎭 案例一：AI 換臉好有趣？</div>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px;">
+                    <div class="img-placeholder" style="height: 180px;">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMOGbjWvYnSLZUCcnYECWUInihwGll_yy6AH84N0wP7m7rUakz-WN2DHnES6kqZXeDNWM1zQvvtQvL63CavDM1PHjvVWynJasJiePRGYHJJXe2bGK8=w1920-h1080" alt="換臉APP情境圖" onerror="this.style.display='none';this.parentNode.innerText='【圖片位置】\n建議放一張手機掃描臉部\n或變身卡通人物的圖片';">
+                    </div>
+                </div>
+                <div style="flex: 2;">
+                    <div class="scenario-desc">
+                        <strong>情境：</strong><br>
+                        網路上流行一款免費的「AI 變身」App，只要上傳一張自拍，就能把你變成迪士尼公主。小雪覺得好玩，上傳了自己的照片，還按了「同意使用條款」。
+                    </div>
+                    <div class="question-prompt">
+                        想一想：雖然照片很漂亮，但你把這輩子無法改變的「臉部特徵」交給了陌生公司。如果有壞人拿你的臉去做 Deepfake 假影片做壞事，該怎麼辦？
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 案例 B：公司機密 -->
+        <div class="thinking-box">
+            <div class="thinking-title">🏢 案例二：幫倒忙的員工？</div>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px;">
+                    <div class="https://lh3.googleusercontent.com/pw/AP1GczPmTXvX63scHVbyfs8zfWk28XqDjHmDYfj50SgXHivGqeL-ju_dac6wp5XKtsTCllr-H15Y2M3DKc7QHj0jK7GD3eBw7P_tkV73gZPEurQkR6ZdcAo=w1920-h1080" style="height: 180px;">
+                        <img src="case_secret_leak.jpg" alt="機密外洩情境圖" onerror="this.style.display='none';this.parentNode.innerText='【圖片位置】\n建議放一張飲料店\n或商業文件的圖片';">
+                    </div>
+                </div>
+                <div style="flex: 2;">
+                    <div class="scenario-desc">
+                        <strong>情境：</strong><br>
+                        大明在飲料店打工，老闆正在研發新的神祕配方。大明為了想廣告詞，把「神祕配方」的成分全部輸入到免費的 AI 聊天機器人裡。隔天，競爭對手問 AI：「最近有什麼好喝的新配方？」AI 竟然把大明公司的秘密講出來了。
+                    </div>
+                    <div class="question-prompt">
+                        想一想：大明只是想把工作做好，但他犯了什麼大錯？如果你是老闆，你會怎麼規定員工使用 AI？
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 案例 C：語音詐騙 -->
+        <div class="thinking-box">
+            <div class="thinking-title">📞 案例三：是誰打電話來？</div>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px;">
+                    <div class="https://lh3.googleusercontent.com/pw/AP1GczPVm_Addt7Cuc86disBySvnbes0B9rcWIhO0wTUVIl4ZC93lEf4DDDm9zN-8Iwi0BaiF_hEhiuV26wXyKYpTaR4HDkqKSy_iGoEwVxgLh785Jy2K80=w1920-h1080" style="height: 180px;">
+                        <img src="case_voice_scam.jpg" alt="語音詐騙情境圖" onerror="this.style.display='none';this.parentNode.innerText='【圖片位置】\n建議放一張長輩接電話\n或手機顯示陌生來電的圖片';">
+                    </div>
+                </div>
+                <div style="flex: 2;">
+                    <div class="scenario-desc">
+                        <strong>情境：</strong><br>
+                        奶奶接到一通電話，電話那頭是孫子小寶的聲音，哭著說：「奶奶我錢包掉了，借我錢！」聲音聽起來一模一樣，奶奶差點就要匯款了。其實，這是詐騙集團用 AI 複製了小寶在 IG 影片裡的聲音。
+                    </div>
+                    <div class="question-prompt">
+                        想一想：眼見不一定為憑，現在連「聽到的」都可能是假的。我們要怎麼跟家人約定一個「通關密語」來預防這種 AI 詐騙？
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 案例 D：照片肉搜 -->
+        <div class="thinking-box">
+            <div class="thinking-title">🕵️ 案例四：AI 偵探？</div>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px;">
+                    <div class="img-placeholder" style="height: 180px;">
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczMTms7lh6MGNcn1480S7XtffgBaoF0ulGiVUxQ4f0pvQ0iNTd-tK8QQrgqp0GMI-ldmIc2BrY30_af816sjbgvm4_DUCuP026JqK6qA0em1bzuhUA0=w1920-h1080" alt="照片肉搜情境圖" onerror="this.style.display='none';this.parentNode.innerText='【圖片位置】\n建議放一張窗邊自拍\n或顯示定位地圖的圖片';">
+                    </div>
+                </div>
+                <div style="flex: 2;">
+                    <div class="scenario-desc">
+                        <strong>情境：</strong><br>
+                        小華在房間自拍並上傳公開，雖然沒有打卡，但背景拍到了窗外的景色。有陌生人用 AI 分析這張照片，AI 根據窗外的建築物角度和陽光方向，精準算出了小華家住在哪一棟大樓、幾樓。
+                    </div>
+                    <div class="question-prompt">
+                        想一想：AI 的視力比人類好太多，能看到我們忽略的細節。在網路上發照片給 AI 看或公開分享時，背景是不是也要小心檢查？
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>本教材僅供學術研究使用</p>
+        <p style="font-size: 0.9em; margin-top: 10px;">國立臺北教育大學 數學暨資訊教育學系</p>
+    </footer>
+
+    <!-- 燈箱 (Lightbox) 功能 -->
+    <div id="myLightbox" class="lightbox">
+        <span class="close-btn">&times;</span>
+        <img class="lightbox-content" id="img01">
+    </div>
+
+    <script>
+        var modal = document.getElementById("myLightbox");
+        var modalImg = document.getElementById("img01");
+        var closeBtn = document.getElementsByClassName("close-btn")[0];
+        var images = document.querySelectorAll('.img-placeholder img');
+
+        images.forEach(function(img) {
+            img.addEventListener('click', function() {
+                if(this.complete && this.naturalHeight !== 0) {
+                    modal.style.display = "flex";
+                    modalImg.src = this.src;
+                }
+            });
+        });
+
+        closeBtn.onclick = function() { 
+            modal.style.display = "none";
+        }
+
+        modal.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+        
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                modal.style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+</html>
